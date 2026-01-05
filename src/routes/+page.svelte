@@ -1,11 +1,17 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, getContext } from 'svelte';
 	import { supabase } from '$lib/supabase';
 	import ArticleCard from '$lib/components/ArticleCard.svelte';
 
 	let articles = $state([]);
 	let loading = $state(true);
 	let error = $state(null);
+
+	const chatContext = getContext('chatContext');
+
+	function handleDiscuss(article) {
+		chatContext?.openChatWithArticle(article);
+	}
 
 	onMount(async () => {
 		try {
@@ -48,7 +54,7 @@
 		{:else}
 			<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 				{#each articles as article (article.id)}
-					<ArticleCard {article} />
+					<ArticleCard {article} onDiscuss={handleDiscuss} />
 				{/each}
 			</div>
 		{/if}
