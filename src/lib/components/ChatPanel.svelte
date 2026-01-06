@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { marked } from 'marked'; 
 
 	let { isOpen = $bindable(false), currentArticle = $bindable(null), onClose } = $props();
 
@@ -18,7 +19,7 @@
 		messages = [
 			{
 				role: 'assistant',
-				content: `I can help you discuss the article: "${currentArticle.title}". What would you like to know about it?`
+				content: `Kontextus hozzáadva: "${currentArticle.title}" kérdezz róla bármit!`
 			}
 		];
 	}
@@ -101,7 +102,7 @@
 <div class="flex flex-col h-full bg-gray-800 border-l border-gray-700">
 	<!-- Header -->
 	<div class="flex items-center justify-between p-4 border-b border-gray-700">
-		<h2 class="text-lg font-semibold text-white">Chat about Articles</h2>
+		<h2 class="text-lg font-semibold text-white">Kérdezz a politikával kapcsolatban!</h2>
 		<div class="flex gap-2">
 			<button
 				onclick={clearChat}
@@ -160,9 +161,9 @@
 			<div class="flex items-center justify-center h-full">
 				<p class="text-gray-400 text-center">
 					{#if currentArticle}
-						Start a conversation about "{currentArticle.title}"
+						"Beszélgessünk a cikkről!: "{currentArticle.title}""
 					{:else}
-						Select an article to discuss or ask me anything about the news!
+						Válassz egy cikket, vagy kérdezz valamit a politikáról!
 					{/if}
 				</p>
 			</div>
@@ -176,7 +177,10 @@
 							? 'bg-blue-600 text-white'
 							: 'bg-gray-700 text-gray-100'}"
 					>
-						<p class="text-sm whitespace-pre-wrap">{message.content}</p>
+						<div class="text-sm prose prose-sm max-w-none 
+    						{message.role === 'user' ? 'prose-invert text-white' : 'prose-invert text-gray-100'}">
+    						{@html marked.parse(message.content)}
+						</div>
 					</div>
 				</div>
 			{/each}
@@ -209,7 +213,7 @@
 			<textarea
 				bind:value={inputMessage}
 				onkeydown={handleKeyPress}
-				placeholder="Ask about the article..."
+				placeholder="Kérdezz a cikkről!"
 				class="flex-1 bg-gray-700 text-white rounded-lg px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
 				rows="2"
 				disabled={isLoading}
@@ -218,7 +222,7 @@
 				onclick={sendMessage}
 				disabled={!inputMessage.trim() || isLoading}
 				class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-				aria-label="Send message"
+				aria-label="Küldj e"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

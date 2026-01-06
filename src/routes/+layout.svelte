@@ -44,7 +44,7 @@
 
 <div class="min-h-screen bg-gray-900 flex flex-col lg:flex-row">
 	<!-- Mobile Toggle Button -->
-	<div class="lg:hidden fixed bottom-4 right-4 z-50">
+	<!-- <div class="lg:hidden fixed bottom-4 right-4 z-50">
 		<button
 			onclick={toggleChat}
 			class="p-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors"
@@ -83,7 +83,7 @@
 				</svg>
 			{/if}
 		</button>
-	</div>
+	</div> -->
 
 	<!-- Main Content Area -->
 	<div
@@ -117,7 +117,8 @@
 
 	<!-- Chat Panel -->
 	<div
-		class="fixed lg:relative inset-0 lg:inset-auto z-50 lg:z-auto {viewMode === 'chat' ? 'block' : 'hidden'} lg:block {chatPanelOpen ? 'lg:w-96' : 'lg:w-0'} lg:overflow-hidden transition-all duration-300"
+		class="fixed lg:sticky lg:top-0 lg:h-screen inset-0 lg:inset-auto z-50 lg:z-auto {viewMode === 'chat' ?
+		'block' : 'hidden'} lg:block {chatPanelOpen ? 'lg:w-96' : 'lg:w-0'} lg:overflow-hidden transition-all duration-300"
 	>
 		<div class="h-full w-full lg:w-96">
 			<ChatPanel
