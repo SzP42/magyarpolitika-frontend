@@ -31,6 +31,11 @@
 		"vite": "^7.2.6"
 	},
 	"dependencies": {
-		"@supabase/supabase-js": "^2.89.0"
+		"@langchain/core": "^1.1.9",
+		"@langchain/mistralai": "^1.0.2",
+		"@supabase/supabase-js": "^2.89.0",
+		"@tailwindcss/typography": "^0.5.19",
+		"langchain": "^1.2.4",
+		"marked": "^17.0.1"
 	}
 }

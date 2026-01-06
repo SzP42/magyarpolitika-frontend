@@ -1,17 +1,11 @@
 <script>
-	import { onMount, getContext } from 'svelte';
+	import { onMount } from 'svelte';
 	import { supabase } from '$lib/supabase';
 	import ArticleCard from '$lib/components/ArticleCard.svelte';
 
 	let articles = $state([]);
 	let loading = $state(true);
 	let error = $state(null);
-
-	const chatContext = getContext('chatContext');
-
-	function handleDiscuss(article) {
-		chatContext?.openChatWithArticle(article);
-	}
 
 	onMount(async () => {
 		try {
@@ -35,8 +29,10 @@
 <div class="text-gray-100">
 	<div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
 		<header class="mb-8">
-			<h1 class="text-4xl font-bold mb-2 sm:text-5xl">News</h1>
-			<p class="text-gray-400">Latest articles and updates</p>
+			<h1 class="text-4xl font-bold mb-2 sm:text-5xl">Magyar politika 2026</h1>
+			<h3 class="text-xl text-gray-400">Ai hírösszefoglalók a magyar politika történéseiről</h3>
+			<h3 class="text-lg text-gray-400">Made by Patrik Szabó</h3>
+			<h3 class="text-lg text-gray-400 underline"><a href="/how-it-works">Hogy működik?</a></h3>
 		</header>
 
 		{#if loading}
@@ -54,7 +50,7 @@
 		{:else}
 			<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 				{#each articles as article (article.id)}
-					<ArticleCard {article} onDiscuss={handleDiscuss} />
+					<ArticleCard {article} />
 				{/each}
 			</div>
 		{/if}
