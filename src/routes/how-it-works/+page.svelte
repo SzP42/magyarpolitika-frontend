@@ -27,6 +27,7 @@
 			<div class="text-gray-300 mb-8 whitespace-pre-wrap leading-relaxed text-lg">
 				<p class="mb-4">
 					A rendszer naponta négyszer összegyűjt, elemez és témákba rendez majdnem 400 cikket (ellenzéki, kormányközeli, és objektív elemzésekből egyaránt). Ezekről a témákról egy Ai részletes összefoglalót készít a források alapján. Ha valami kérdés merül fel a cikk alapján, akkor a chat interfészen keresztül lehet beszélgetni a cikkel kapcsolatban az ai-al.
+					Egy gombbal alul meg lehet nézni a forrásokat is. 
 				</p>
 
                 <p class="mb-4">Mind a cikkíráskor, mind a chatben <a href="https://docs.mistral.ai/models/mistral-large-3-25-12" target="_blank" class="underline">Mistral Large 3</a> modellt használunk.</p>
