@@ -30,7 +30,7 @@
 					Egy gombbal alul meg lehet nézni a forrásokat is. 
 				</p>
 
-                <p class="mb-4">Mind a cikkíráskor, mind a chatben <a href="https://docs.mistral.ai/models/mistral-large-3-25-12" target="_blank" class="underline">Mistral Large 3</a> modellt használunk.</p>
+                <p class="mb-4">Mind a cikkíráskor, mind a chatben Google Gemini 3 Flash modellt használunk.</p>
 			</div>
 		</article>
 	</div>
