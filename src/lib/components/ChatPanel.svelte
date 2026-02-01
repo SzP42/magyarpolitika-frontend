@@ -99,14 +99,14 @@
 	});
 </script>
 
-<div class="flex flex-col h-full bg-gray-800 border-l border-gray-700">
+<div class="flex flex-col h-full bg-white border-l border-gray-300">
 	<!-- Header -->
-	<div class="flex items-center justify-between p-4 border-b border-gray-700">
-		<h2 class="text-lg font-semibold text-white">Kérdezz a politikával kapcsolatban!</h2>
+	<div class="flex items-center justify-between p-4 border-b border-gray-300">
+		<h2 class="text-lg font-semibold text-[#7b3f00]">Kérdezz a politikával kapcsolatban!</h2>
 		<div class="flex gap-2">
 			<button
 				onclick={clearChat}
-				class="p-2 text-gray-400 hover:text-white transition-colors"
+				class="p-2 text-[#7b3f00] hover:text-[#5a2f00] transition-colors"
 				title="Clear chat"
 				aria-label="Clear chat"
 			>
@@ -130,7 +130,7 @@
 					isOpen = false;
 					onClose?.();
 				}}
-				class="p-2 text-gray-400 hover:text-white transition-colors lg:hidden"
+				class="p-2 text-[#7b3f00] hover:text-[#5a2f00] transition-colors lg:hidden"
 				title="Close chat"
 				aria-label="Close chat"
 			>
@@ -159,7 +159,7 @@
 	>
 		{#if messages.length === 0}
 			<div class="flex items-center justify-center h-full">
-				<p class="text-gray-400 text-center">
+				<p class="text-[#7b3f00] text-center">
 					{#if currentArticle}
 						"Beszélgessünk a cikkről!: "{currentArticle.title}""
 					{:else}
@@ -175,10 +175,10 @@
 					<div
 						class="max-w-[80%] rounded-lg p-3 {message.role === 'user'
 							? 'bg-blue-600 text-white'
-							: 'bg-gray-700 text-gray-100'}"
+							: 'bg-gray-100 text-[#7b3f00] border border-gray-300'}"
 					>
-						<div class="text-sm prose prose-sm max-w-none 
-    						{message.role === 'user' ? 'prose-invert text-white' : 'prose-invert text-gray-100'}">
+						<div class="text-sm prose prose-sm max-w-none
+    						{message.role === 'user' ? 'prose-invert text-white' : 'prose-gray'}">
     						{@html marked.parse(message.content)}
 						</div>
 					</div>
@@ -186,18 +186,18 @@
 			{/each}
 			{#if isLoading}
 				<div class="flex justify-start">
-					<div class="bg-gray-700 rounded-lg p-3">
+					<div class="bg-gray-100 rounded-lg p-3 border border-gray-300">
 						<div class="flex gap-1">
 							<div
-								class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+								class="w-2 h-2 bg-[#7b3f00] rounded-full animate-bounce"
 								style="animation-delay: 0s"
 							></div>
 							<div
-								class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+								class="w-2 h-2 bg-[#7b3f00] rounded-full animate-bounce"
 								style="animation-delay: 0.2s"
 							></div>
 							<div
-								class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+								class="w-2 h-2 bg-[#7b3f00] rounded-full animate-bounce"
 								style="animation-delay: 0.4s"
 							></div>
 						</div>
@@ -208,13 +208,13 @@
 	</div>
 
 	<!-- Input Area -->
-	<div class="p-4 border-t border-gray-700">
+	<div class="p-4 border-t border-gray-300">
 		<div class="flex gap-2">
 			<textarea
 				bind:value={inputMessage}
 				onkeydown={handleKeyPress}
 				placeholder="Kérdezz a cikkről!"
-				class="flex-1 bg-gray-700 text-white rounded-lg px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+				class="flex-1 bg-gray-100 text-[#7b3f00] rounded-lg px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-300"
 				rows="2"
 				disabled={isLoading}
 			></textarea>

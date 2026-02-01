@@ -39,10 +39,10 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<meta name="color-scheme" content="dark" />
+	<meta name="color-scheme" content="light" />
 </svelte:head>
 
-<div class="min-h-screen bg-gray-900 flex flex-col lg:flex-row">
+<div class="min-h-screen flex flex-col lg:flex-row" style="background-color: #f0eee7;">
 	<!-- Mobile Toggle Button -->
 	<!-- <div class="lg:hidden fixed bottom-4 right-4 z-50">
 		<button
@@ -95,7 +95,7 @@
 	<!-- Desktop Side Panel Toggle Button -->
 		<button
 			onclick={() => (chatPanelOpen = !chatPanelOpen)}
-			class="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-40 p-2 bg-gray-800 text-white border border-r-0 border-gray-700 rounded-l-lg hover:bg-gray-700 transition-colors"
+			class="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-40 p-2 bg-gray-200 text-black border border-r-0 border-gray-300 rounded-l-lg hover:bg-gray-300 transition-colors"
 			title={chatPanelOpen ? 'Close chat' : 'Open chat'}
 			aria-label={chatPanelOpen ? 'Close chat' : 'Open chat'}
 		>

@@ -1,8 +1,8 @@
-<div class="text-gray-100 min-h-full">
+<div class="text-black min-h-full">
 	<div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8 max-w-4xl">
 		<a
 			href="/"
-			class="inline-flex items-center text-gray-400 hover:text-white mb-6 transition-colors group"
+			class="inline-flex items-center text-gray-600 hover:text-black mb-6 transition-colors group"
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -19,15 +19,15 @@
 			Vissza a Hírekhez
 		</a>
 
-		<article class="bg-gray-800 rounded-lg p-6 sm:p-8 shadow-xl">
-			<h1 class="text-3xl sm:text-4xl font-bold mb-6 text-white leading-tight">
+		<article class="bg-white rounded-lg p-6 sm:p-8 shadow-xl border border-gray-200">
+			<h1 class="text-3xl sm:text-4xl font-bold mb-6 text-black leading-tight">
 				Hogyan működik az oldal?
 			</h1>
 
-			<div class="text-gray-300 mb-8 whitespace-pre-wrap leading-relaxed text-lg">
+			<div class="text-gray-800 mb-8 whitespace-pre-wrap leading-relaxed text-lg">
 				<p class="mb-4">
 					A rendszer naponta négyszer összegyűjt, elemez és témákba rendez majdnem 400 cikket (ellenzéki, kormányközeli, és objektív elemzésekből egyaránt). Ezekről a témákról egy Ai részletes összefoglalót készít a források alapján. Ha valami kérdés merül fel a cikk alapján, akkor a chat interfészen keresztül lehet beszélgetni a cikkel kapcsolatban az ai-al.
-					Egy gombbal alul meg lehet nézni a forrásokat is. 
+					Egy gombbal alul meg lehet nézni a forrásokat is.
 				</p>
 
                 <p class="mb-4">Mind a cikkíráskor, mind a chatben Google Gemini 3 Flash modellt használunk.</p>

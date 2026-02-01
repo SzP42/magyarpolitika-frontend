@@ -1,2 +1,8 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography"; 
+@plugin "@tailwindcss/typography";
+
+@layer base {
+	body {
+		font-family: Georgia, 'Times New Roman', serif;
+	}
+} 
