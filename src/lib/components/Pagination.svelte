@@ -46,12 +46,12 @@
 	{#if currentPage > 1}
 		<a
 			href="/?page={currentPage - 1}"
-			class="px-4 py-2 bg-white text-black border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
+			class="px-4 py-2 bg-white text-black border-2 border-[#123524] rounded-lg hover:bg-[#123524] hover:text-white transition-colors"
 		>
 			Előző
 		</a>
 	{:else}
-		<span class="px-4 py-2 bg-gray-200 text-gray-400 rounded-lg cursor-not-allowed border border-gray-300">Előző</span>
+		<span class="px-4 py-2 bg-gray-200 text-gray-400 rounded-lg cursor-not-allowed border-2 border-gray-300">Előző</span>
 	{/if}
 
 	<!-- Page numbers -->
@@ -61,7 +61,7 @@
 				<span class="px-3 py-2 text-gray-600">...</span>
 			{:else if page === currentPage}
 				<span
-					class="px-3 py-2 bg-blue-600 text-white rounded-lg font-semibold"
+					class="px-3 py-2 bg-[#123524] text-white rounded-lg font-semibold"
 					aria-current="page"
 				>
 					{page}
@@ -69,7 +69,7 @@
 			{:else}
 				<a
 					href="/?page={page}"
-					class="px-3 py-2 bg-white text-black border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
+					class="px-3 py-2 bg-white text-black border-2 border-[#123524] rounded-lg hover:bg-[#123524] hover:text-white transition-colors"
 				>
 					{page}
 				</a>
@@ -81,12 +81,12 @@
 	{#if currentPage < totalPages}
 		<a
 			href="/?page={currentPage + 1}"
-			class="px-4 py-2 bg-white text-black border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
+			class="px-4 py-2 bg-white text-black border-2 border-[#123524] rounded-lg hover:bg-[#123524] hover:text-white transition-colors"
 		>
 			Következő
 		</a>
 	{:else}
-		<span class="px-4 py-2 bg-gray-200 text-gray-400 rounded-lg cursor-not-allowed border border-gray-300"
+		<span class="px-4 py-2 bg-gray-200 text-gray-400 rounded-lg cursor-not-allowed border-2 border-gray-300"
 			>Következő</span
 		>
 	{/if}

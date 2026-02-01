@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
-import { ChatMistralAI } from "@langchain/mistralai";
+import { ChatOpenAI } from "@langchain/openai";
 import { HumanMessage, SystemMessage, AIMessage } from "@langchain/core/messages";
-import { MISTRAL_API_KEY } from '$env/static/private';
+import { OPENAI_API_KEY } from '$env/static/private';
 
 // Ensure you have MISTRAL_API_KEY in your .env file
 
@@ -9,17 +9,16 @@ import { MISTRAL_API_KEY } from '$env/static/private';
 export async function POST({ request }) {
     try {
         // Extract data sent from ChatPanel.svelte
-        const { message, article, conversationHistory } = await request.json();
+        const { message, article, contextArticles, conversationHistory } = await request.json();
 
         if (!message || typeof message !== 'string') {
             return json({ error: 'Message is required' }, { status: 400 });
         }
 
-        // 1. Initialize Mistral
-        const chat = new ChatMistralAI({
-            apiKey: MISTRAL_API_KEY, // Make sure this is set in your .env
-            model: "mistral-large-2512",
-            temperature: 0.5,
+        // 1. Initialize OpenAI
+        const chat = new ChatOpenAI({
+            apiKey: OPENAI_API_KEY, // Make sure this is set in your .env
+            model: "gpt-5-mini",
         });
 
         // 2. Build the Message History
@@ -34,6 +33,17 @@ export async function POST({ request }) {
                  `Context article title: "${article.title}".\n` +
                  `Content: ${article.article}`
              ));
+        }
+
+        // Add context articles if provided
+        if (contextArticles && Array.isArray(contextArticles) && contextArticles.length > 0) {
+            const contextContent = contextArticles.map(art =>
+                `Title: "${art.title}"\nContent: ${art.article}`
+            ).join('\n\n---\n\n');
+
+            messages.push(new SystemMessage(
+                `Additional context articles:\n\n${contextContent}`
+            ));
         }
 
         // Add previous conversation history (mapping 'user'/'assistant' roles to LangChain classes)

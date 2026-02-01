@@ -8,12 +8,37 @@
 
 	let chatPanelOpen = $state(false);
 	let currentArticle = $state(null);
+	let initialMessage = $state(null);
+	let contextArticles = $state([]);
 	let viewMode = $state('articles'); // 'articles' or 'chat' for mobile
 
 	function openChatWithArticle(article) {
 		currentArticle = article;
+		initialMessage = null;
 		chatPanelOpen = true;
 		viewMode = 'chat';
+	}
+
+	function openChatWithMessage(message) {
+		currentArticle = null;
+		initialMessage = message;
+		chatPanelOpen = true;
+		viewMode = 'chat';
+	}
+
+	function addToContext(article) {
+		// Limit to 3 articles
+		if (contextArticles.length >= 3) {
+			alert('Maximum 3 cikk lehet a kontextusban!');
+			return;
+		}
+		if (!contextArticles.find(a => a.id === article.id)) {
+			contextArticles = [...contextArticles, article];
+		}
+	}
+
+	function removeFromContext(articleId) {
+		contextArticles = contextArticles.filter(a => a.id !== articleId);
 	}
 
 	function toggleChat() {
@@ -33,7 +58,11 @@
 
 	// Provide context for child components
 	setContext('chatContext', {
-		openChatWithArticle
+		openChatWithArticle,
+		openChatWithMessage,
+		addToContext,
+		removeFromContext,
+		contextArticles: () => contextArticles
 	});
 </script>
 
@@ -92,29 +121,6 @@
 		{@render children()}
 	</div>
 
-	<!-- Desktop Side Panel Toggle Button -->
-		<button
-			onclick={() => (chatPanelOpen = !chatPanelOpen)}
-			class="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-40 p-2 bg-gray-200 text-black border border-r-0 border-gray-300 rounded-l-lg hover:bg-gray-300 transition-colors"
-			title={chatPanelOpen ? 'Close chat' : 'Open chat'}
-			aria-label={chatPanelOpen ? 'Close chat' : 'Open chat'}
-		>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			class="h-6 w-6 transition-transform {chatPanelOpen ? 'rotate-180' : ''}"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke="currentColor"
-		>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="2"
-				d="M9 5l7 7-7 7"
-			/>
-		</svg>
-	</button>
-
 	<!-- Chat Panel -->
 	<div
 		class="fixed lg:sticky lg:top-0 lg:h-screen inset-0 lg:inset-auto z-50 lg:z-auto {viewMode === 'chat' ?
@@ -124,6 +130,9 @@
 			<ChatPanel
 				bind:isOpen={chatPanelOpen}
 				bind:currentArticle={currentArticle}
+				bind:initialMessage={initialMessage}
+				bind:contextArticles={contextArticles}
+				onRemoveContext={removeFromContext}
 				onClose={handleChatClose}
 			/>
 		</div>

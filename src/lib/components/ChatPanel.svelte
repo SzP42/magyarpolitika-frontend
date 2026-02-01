@@ -1,8 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
-	import { marked } from 'marked'; 
+	import { marked } from 'marked';
 
-	let { isOpen = $bindable(false), currentArticle = $bindable(null), onClose } = $props();
+	let { isOpen = $bindable(false), currentArticle = $bindable(null), initialMessage = $bindable(null), contextArticles = $bindable([]), onRemoveContext, onClose } = $props();
 
 	let messages = $state([]);
 	let inputMessage = $state('');
@@ -22,6 +22,10 @@
 				content: `Kontextus hozzáadva: "${currentArticle.title}" kérdezz róla bármit!`
 			}
 		];
+	}
+
+	function getFirstThreeWords(title) {
+		return title.split(' ').slice(0, 3).join(' ') + '...';
 	}
 
 	async function sendMessage() {
@@ -49,6 +53,7 @@
 				body: JSON.stringify({
 					message: userMessage,
 					article: currentArticle,
+					contextArticles: contextArticles,
 					conversationHistory: messages.slice(0, -1)
 				})
 			});
@@ -95,6 +100,15 @@
 	$effect(() => {
 		if (currentArticle && messages.length === 0) {
 			initializeChatWithArticle();
+		}
+	});
+
+	$effect(() => {
+		if (initialMessage && initialMessage.trim()) {
+			// Set the initial message and send it automatically
+			inputMessage = initialMessage;
+			initialMessage = null; // Clear it so it doesn't trigger again
+			sendMessage();
 		}
 	});
 </script>
@@ -209,6 +223,27 @@
 
 	<!-- Input Area -->
 	<div class="p-4 border-t border-gray-300">
+		<!-- Context Articles Display -->
+		{#if contextArticles.length > 0}
+			<div class="mb-3 text-xs">
+				<div class="text-[#123524] font-semibold mb-2">Context:</div>
+				<div class="flex flex-wrap gap-2">
+					{#each contextArticles as article (article.id)}
+						<div class="flex items-center gap-1 bg-[#123524] text-white px-2 py-1 rounded-full">
+							<span>{getFirstThreeWords(article.title)}</span>
+							<button
+								onclick={() => onRemoveContext?.(article.id)}
+								class="hover:text-red-300 transition-colors ml-1"
+								aria-label="Eltávolítás"
+							>
+								×
+							</button>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
 		<div class="flex gap-2">
 			<textarea
 				bind:value={inputMessage}

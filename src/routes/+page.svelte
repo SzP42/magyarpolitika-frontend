@@ -2,8 +2,14 @@
 	import ArticleCard from '$lib/components/ArticleCard.svelte';
 	import Pagination from '$lib/components/Pagination.svelte';
 	import Politik from '$lib/assets/Politik.png';
+	import { getContext } from 'svelte';
 
 	let { data } = $props();
+
+	const chatContext = getContext('chatContext');
+	let searchQuery = $state('');
+
+	let contextArticles = $derived(chatContext?.contextArticles?.() || []);
 
 	// Group articles by date
 	let groupedArticles = $derived.by(() => {
@@ -30,9 +36,23 @@
 		{ slug: 'kampany', name: 'Kampány' },
 		{ slug: 'kulpolitika', name: 'Külpolitika' },
 		{ slug: 'egeszsegugy', name: 'Egészségügy' },
-		{ slug: 'kozlekedes', name: 'Közlekedés' },
+		{ slug: 'kozlekedes', name: 'Közlekedés (MÁV)' },
 		{ slug: 'egyeb', name: 'Egyéb' }
 	];
+
+	function handleSearch(event) {
+		event.preventDefault();
+		if (searchQuery.trim()) {
+			chatContext.openChatWithMessage(searchQuery.trim());
+			searchQuery = '';
+		}
+	}
+
+	function handleKeyPress(event) {
+		if (event.key === 'Enter') {
+			handleSearch(event);
+		}
+	}
 </script>
 
 <div class="text-[#7b3f00]">
@@ -41,8 +61,52 @@
 			<img src={Politik} alt="Magyar Politika 2026" class="mb-4 w-32 mx-auto" />
 			<h3 class="text-xl text-[#7b3f00]">Ai hírösszefoglalók a magyar politika történéseiről</h3>
 			<h3 class="text-lg text-[#7b3f00]">Made by Patrik Szabó</h3>
-			<h3 class="text-lg text-[#7b3f00] underline"><a href="/how-it-works">Hogy működik?</a></h3>
 		</header>
+
+		<!-- Search Box -->
+		<div class="mb-6 max-w-2xl mx-auto">
+			<form onsubmit={handleSearch} class="relative">
+				<input
+					type="text"
+					bind:value={searchQuery}
+					onkeydown={handleKeyPress}
+					placeholder="Kérdezz bármit a magyar politikáról"
+					class="w-full px-4 py-3 pr-12 border-2 border-[#7b3f00] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7b3f00] focus:border-transparent bg-white text-[#7b3f00] placeholder-[#7b3f00] placeholder-opacity-50"
+				/>
+				<button
+					type="submit"
+					class="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-[#7b3f00] hover:text-[#5a2f00] transition-colors"
+					aria-label="Küldés"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-5 w-5"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M13 7l5 5m0 0l-5 5m5-5H6"
+						/>
+					</svg>
+				</button>
+			</form>
+
+			<!-- Context Display -->
+			{#if contextArticles.length > 0}
+				<div class="mt-3 text-sm text-[#123524]">
+					<span class="font-semibold">Context:</span>
+					{#each contextArticles as article, index}
+						<span>
+							{article.title.split(' ').slice(0, 3).join(' ')}...{#if index < contextArticles.length - 1},{/if}
+						</span>
+					{/each}
+				</div>
+			{/if}
+		</div>
 
 		<!-- Tags Navigation -->
 		<nav class="mb-8 border-b border-[#7b3f00] pb-4">
