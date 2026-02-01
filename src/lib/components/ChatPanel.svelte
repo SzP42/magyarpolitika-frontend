@@ -188,7 +188,7 @@
 				>
 					<div
 						class="max-w-[80%] rounded-lg p-3 {message.role === 'user'
-							? 'bg-blue-600 text-white'
+							? 'bg-[#123524] text-white'
 							: 'bg-gray-100 text-[#7b3f00] border border-gray-300'}"
 					>
 						<div class="text-sm prose prose-sm max-w-none
@@ -256,7 +256,7 @@
 			<button
 				onclick={sendMessage}
 				disabled={!inputMessage.trim() || isLoading}
-				class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+				class="px-4 py-2 bg-[#123524] text-white rounded-lg hover:bg-[#0a1f18] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 				aria-label="Küldj e"
 			>
 				<svg

@@ -24,7 +24,7 @@ export async function POST({ request }) {
         // 2. Build the Message History
         // Start with a system prompt to define the bot's behavior
         const messages = [
-            new SystemMessage("Egy szakértő vagy a magyar politikában. Válaszolj érthetően és lényegretörően a kérdésre az adott kontextus alapján, de amikor szükséges, fejtsd ki a válaszod."),
+            new SystemMessage("Egy szakértő vagy a magyar politikában. Válaszolj érthetően lényegretörően, és röviden a kérdésre az adott kontextus alapján"),
         ];
 
         // If an article is selected, add it as context
